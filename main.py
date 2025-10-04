@@ -1,4 +1,5 @@
 import dataclasses
+from functools import reduce
 
 
 @dataclasses.dataclass
@@ -16,7 +17,12 @@ def calculate_new_state(current_state: CurrentState, new_value: float) -> Curren
 
 
 def main():
-    print("Hello from running-mean-demo!")
+    vals = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+    init_state = CurrentState(0, 0)
+    print(init_state)
+    for v in vals:
+        init_state = calculate_new_state(init_state, v)
+        print(init_state)
 
 
 if __name__ == "__main__":
