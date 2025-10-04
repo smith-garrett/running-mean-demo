@@ -1,11 +1,18 @@
-import dataclasses
-from functools import reduce
+from ast import Dict
+import pydantic
+import fastapi
 
 
-@dataclasses.dataclass
-class CurrentState:
+app = fastapi.FastAPI()
+
+
+class CurrentState(pydantic.BaseModel):
     running_mean: float
     count: int
+
+
+class NewValue(pydantic.BaseModel):
+    new_value: float
 
 
 def calculate_new_state(current_state: CurrentState, new_value: float) -> CurrentState:
@@ -13,17 +20,20 @@ def calculate_new_state(current_state: CurrentState, new_value: float) -> Curren
     new_mean = (
         new_value + current_state.count * current_state.running_mean
     ) / new_count
-    return CurrentState(new_mean, new_count)
+    return CurrentState(running_mean=new_mean, count=new_count)
 
 
-def main():
-    vals = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
-    init_state = CurrentState(0, 0)
-    print(init_state)
-    for v in vals:
-        init_state = calculate_new_state(init_state, v)
-        print(init_state)
+current_state = CurrentState(running_mean=0.0, count=0)
 
 
-if __name__ == "__main__":
-    main()
+@app.get("/")
+async def get_current():
+    return current_state
+
+
+@app.post("/update/")
+async def update_running_mean(new_value: NewValue):  # -> CurrentState:
+    global current_state
+    current_state = calculate_new_state(current_state, new_value.new_value)
+    return current_state
+    # return new_value
