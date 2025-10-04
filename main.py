@@ -16,6 +16,7 @@ class NewValue(pydantic.BaseModel):
 
 
 def calculate_new_state(current_state: CurrentState, new_value: float) -> CurrentState:
+    """https://en.wikipedia.org/wiki/Moving_average#Cumulative_average"""
     new_count = current_state.count + 1
     new_mean = (
         new_value + current_state.count * current_state.running_mean
@@ -36,4 +37,3 @@ async def update_running_mean(new_value: NewValue):  # -> CurrentState:
     global current_state
     current_state = calculate_new_state(current_state, new_value.new_value)
     return current_state
-    # return new_value
