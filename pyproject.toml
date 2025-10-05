@@ -3,13 +3,24 @@ name = "running-mean-demo"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+authors = [
+    { name = "Garrett Smith", email = "garrettsmith78@gmail.com" }
+]
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.118.0",
     "pydantic>=2.11.10",
 ]
 
+[project.scripts]
+running-mean-demo = "running_mean_demo:main"
+
+[build-system]
+requires = ["uv_build>=0.8.11,<0.9.0"]
+build-backend = "uv_build"
+
 [dependency-groups]
 dev = [
     "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
 ]
