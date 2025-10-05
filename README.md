@@ -1,1 +1,1 @@
-![Website Deploy](https://deploy-badge.vercel.app/?url=https%3A%2F%2Frunning-mean-demo.onrender.com&name=Render)
+[![CI Jobs](https://github.com/smith-garrett/running-mean-demo/actions/workflows/ci.yaml/badge.svg)](https://github.com/smith-garrett/running-mean-demo/actions/workflows/ci.yaml)
