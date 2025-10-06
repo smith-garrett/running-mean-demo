@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ['CI Jobs']
+    types: [completed]
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # Only run this step if the branch is main
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        env:
+          deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"
