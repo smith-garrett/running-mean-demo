@@ -12,10 +12,10 @@ To run this locally, you can clone the repository, build the image, and run it i
 ```bash
 $ git clone https://github.com/smith-garrett/running-mean-demo.git
 $ podman build -t running-mean-demo .
-$ podman run -p 8000 running-mean-demo
+$ podman run -p 127.0.0.1:8000:8000 running-mean-demo
 ```
 
-The Swagger docs should be available at `localhost:8000/docs` after that.
+The Swagger docs should be available at `127.0.0.1:8000/docs` after that.
 
 This is a work in progress.
 
