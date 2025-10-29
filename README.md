@@ -7,6 +7,16 @@ The purpose of this project is to learn/practice implementing, testing, and depl
 
 To view the current running average, you can `curl https://running-mean-demo.onrender.com` or just point a browser to the URL. To update the running mean, you can run `curl --json '{"new_value": XXX}' https://running-mean-demo.onrender.com/update/`, replacing `XXX` with a floating point number. The model will then update its estimate of the cumulative mean and return the result as JSON, e.g., `{"running_mean":-3.871,"count":1}`, where `running_mean` is the estimate and `count` is the number of data points that have been posted so far. Note that the estimate gets reset if the endpoint is inactive for too long.
 
+To run this locally, you can clone the repository, build the image, and run it in a container using Docker or Podman:
+
+```bash
+$ git clone https://github.com/smith-garrett/running-mean-demo.git
+$ podman build -t running-mean-demo .
+$ podman run -p 8000 running-mean-demo
+```
+
+The Swagger docs should be available at `localhost:8000/docs` after that.
+
 This is a work in progress.
 
 ---
